@@ -97,7 +97,7 @@ def checker(hosts, path, headers, request_method, request_timeout, follow_redire
 		if url.endswith("/"):
 			url = url[:-1]
 		try:
-			req = request_method(url+"/"+path, headers=headers, timeout=request_timeout, allow_redirects=follow_redirect)
+			req = request_method(url+"/"+path, headers=headers, timeout=request_timeout, allow_redirects=follow_redirect, verify=False)
 		except requests.exceptions.RequestException:
 			continue
 		else:
