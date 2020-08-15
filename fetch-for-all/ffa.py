@@ -14,11 +14,11 @@ def create_table(rows, headers=["Path", "Status code", "Content length"]):
 	for row in rows:
 		#Coloring rows
 		row[0] = color.white + row[0] + color.reset
-		if row[1]>=200:
+		if row[1]>=200 and row[1]<300:
 			row[1] = color.green + str(row[1]) + color.reset
-		elif row[1]>=300:
+		elif row[1]>=300 and row[1]<400:
 			row[1] = color.blue + str(row[1]) + color.reset
-		elif row[1]>=400:
+		elif row[1]>=400 and row[1]<500:
 			row[1] = color.red + str(row[1]) + color.reset
 		elif row[1]>=500:
 			row[1] = color.magneta + str(row[1]) + color.reset
@@ -121,7 +121,7 @@ def checker(hosts, path, headers, request_method, request_timeout, follow_redire
 def main(cli):
 	total_result = {}
 	http_method,text_method = find_method(cli.method)
-	threads, sleep, request_timeout, follow_redirect = cli.threads, cli.throttle, cli.timeout, cli.follow_redirects # Default: 100,0,10,False
+	threads, sleep, request_timeout, follow_redirect = cli.threads, cli.throttle, cli.timeout, cli.follow_redirects # Default: 600,0,10,False
 	with open(cli.hosts) as h, open(cli.paths) as p:
 		hosts = h.read().splitlines()
 		paths = p.read().splitlines()
@@ -207,7 +207,7 @@ if __name__ == '__main__':
 	parser.add_argument("paths", help="File of paths file to test on")
 	parser.add_argument("-hh", "--headers", metavar="", help="Headers you want to add to requests(ex: 'Host: 127.0.0.1')")
 	parser.add_argument("-m", "--method", metavar="", help="HTTP method (default: HEAD)")
-	parser.add_argument("-c", "--threads", metavar="", help="The number of maximum concurrent threads to use (Default: 100)", type=int, default=100)
+	parser.add_argument("-c", "--threads", metavar="", help="The number of maximum concurrent threads to use (Default: 600)", type=int, default=600)
 	parser.add_argument("-r","--follow-redirects", help="Follow redirects for all sent requests (Default: not allowed)", action="store_true", default=False)
 	parser.add_argument("-d","--display", help="Display less detailed output in the terminal without much noise.", action="store_true", default=False)
 	parser.add_argument("-a","--all-hosts", help="Don't check for wildcard responses, fetch all!", action="store_true")
